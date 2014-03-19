@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>S01E01 | Nardoz #ngworkshop</title>
+  <style>
+    p { margin: 4px; padding: 3px; padding-left: 5px; font-family: Monospace; }
+    p.lo { border: 1px solid #999; background-color: #eee; }
+    p.hi { border: 1px solid orange; background-color: #fe9; }
+  </style>
+</head>
+<body ng-app="workshop">
+
+  <p class="hi">{{ 'Hello' }}</p>
+  <p class="hi">{{ 1+1 }}</p>
+  <p class="hi">{{ ['nar', 'doz'].join('') }}</p>
+
+  <hr>
+
+  <p class="lo"><script>document.write({ title: 'ngworkshop' })</script></p>
+  <p class="hi">{{ { title: 'ngworkshop' } }}</p>
+
+  <hr>
+
+  <p class="lo"><script>document.write(JSON.stringify({ title: 'ngworkshop' }))</script></p>
+
+  <hr>
+
+  <p class="lo"><script>document.write({ title: 'ngworkshop' }).not.exists</script></p>
+  <p class="hi">{{ { title: 'ngworkshop' }.not.exists }}</p>
+
+  <hr>
+
+  <script>var someText = 'nardoz';</script>
+  <p class="lo"><script>document.write(someText)</script></p>
+  <p class="hi">{{ someText }}</p>
+
+  <hr>
+
+  <p class="lo"><script>document.write(this.someText)</script></p>
+  <p class="hi">{{ this.someText }}</p>
+
+  <hr>
+
+  <p class="lo"><script>document.write(this)</script></p>
+  <p class="hi">{{ this }}</p>
+
+  <script src="/vendor/angular/angular.js"></script>
+  <script src="app/workshop.js"></script>
+</body>
+</html>
