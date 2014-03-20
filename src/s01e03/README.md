@@ -1,6 +1,6 @@
 ## S01E03: "$digest Loop"
 
-**_Previously on #ngworkshop_**
+[**_Previously on #ngworkshop_**](https://github.com/Nardoz/ngworkshop/tree/master/src/s01e02)
 
 > Aprendimos sobre scopes y su relación con el DOM. Experimentando, descubrimos que Angular mantiene actualizada la vista *"todo el tiempo"*...
 
@@ -107,3 +107,5 @@ Relacionado a esto, tengamos en cuenta que, así como `ng-controller`, hay otras
 ```
 
 Ventajas de splitear scopes/crear varios controllers. Encapsulamiento de componentes de la vista.
+
+### [Próximo episodio >>](https://github.com/Nardoz/ngworkshop/tree/master/src/s01e04)
