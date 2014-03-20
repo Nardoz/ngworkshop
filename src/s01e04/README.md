@@ -1,6 +1,6 @@
 ## S01E04: "Hay que salir del agujero interior"
 
-**_Previously on #ngworkshop_**
+[**_Previously on #ngworkshop_**](https://github.com/Nardoz/ngworkshop/tree/master/src/s01e03)
 
 > Finalmente descubrimos la verdad tras {{ }}: la "magia" está en que cada uno de estos crea un watcher que entra en el digest loop (dirty checking). También hay watchers para la dirección contraria, es decir, vista->modelo. Además del $rootScope creado por ng-app, los controllers (además de otras directivas) también crean un scope. Esto puede llegar a ser tricky, hay que ser cuidadoso.
 
