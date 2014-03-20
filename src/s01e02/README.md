@@ -1,6 +1,6 @@
 ## S01E02: "Scopes"
 
-**_Previously on #ngworkshop_**
+[**_Previously on #ngworkshop_**](https://github.com/Nardoz/ngworkshop/tree/master/src/s01e01)
 
 > `{{ }}` pareciera evaluar la expresión que contiene; es como si fuera un "shortcut" a `document.write` pero con algunas diferencias sutiles; sin embargo, nos dimos cuenta que el contexto de evaluación pareciera ser otro distinto al que estamos acostumbrados...
 
@@ -55,3 +55,5 @@ Cool! Probemos algo más cool todavía:
 ```
 
 Model->View autosync magic FTW!
+
+### [Próximo episodio >>](https://github.com/Nardoz/ngworkshop/tree/master/src/s01e03)
