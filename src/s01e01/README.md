@@ -36,7 +36,7 @@ Para automatizar este setup [me hice un script en bash](https://github.com/luisf
 
 Para instalar Bower y Gulp:
 
-```
+```sh
 $ sudo npm install -g bower gulp
 ```
 
@@ -44,7 +44,7 @@ Para instalar LiveReload (para Chrome): https://chrome.google.com/webstore/detai
 
 
 ### Creación del proyecto ###
-```
+```sh
 $ ngstart --no-test workshop
 ```
 
@@ -66,15 +66,15 @@ Al término del script, habrá un web server levantado en [localhost:3000](http:
 
 Abrir `index.html`; acerca de `ng-app`. Template y `{{ }}`.
 
-```
+```js
 <p>{{ 'Hello' }}</p>
 ```
 
-```
+```js
 <p>{{ 1+1 }}</p>
 ```
 
-```
+```js
 <p>{{ ['nar', 'doz'].join('') }}</p>
 ```
 
@@ -82,40 +82,40 @@ Refrescar y notar flickering ==> Angular bootstrap.
 
 Ok, o sea que `{{ }}` es básicamente un `document.write`? No.
 
-```
+```html
 <p><script>document.write({ title: 'ngworkshop' })</script></p>
 <p>{{ { title: 'ngworkshop'} }}</p>
 ```
 
 Ok, no big deal, `{{ }}` está haciendo stringify automático (ponele):
 
-```
+```html
 <p><script>document.write(JSON.stringify({ title: 'ngworkshop' }))</script></p>
 ```
 
 Otra diferencia: nunca rompe por undefined properties:
 
-```
+```html
 <p><script>document.write({ title: 'ngworkshop' }.not.exists)</script></p>
 <p>{{ { title: 'ngworkshop'}.not.exists }}</p>
 ```
 
 Es {{ }} un eval? Parecido. La expresión es evaluada, efectivamente. Pero el contexto no es el mismo que `eval()`. Probemos lo siguiente:
 
-```
+```html
 <script>var someText = 'nardoz';</script>
 <p><script>document.write(someText)</script></p>
 <p>{{ someText }}</p>
 ```
 
-```
+```html
 <p><script>document.write(this.someText)</script></p>
 <p>{{ this.someText }}</p>
 ```
 
 WTF! Acabemos con esta farsa.
 
-```
+```html
 <p><script>document.write(this)</script></p>
 <p>{{ this }}</p>
 ```
