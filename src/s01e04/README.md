@@ -33,7 +33,7 @@ Lista de miembros y su tecnología preferida.
 
 Empecemos por la vista:
 
-```
+```html
 <table border="1">
   <tr>
     <th>Member</th>
@@ -45,7 +45,7 @@ Empecemos por la vista:
 
 Bindear un array a la tabla: `ng-repeat="item in array"`; expresión que se evalúa en el scope.
 
-```
+```html
 <tr ng-repeat="member in ['DiegoRam', 'Lufo']">
   <td>{{ member }}</td>
 </tr>
@@ -53,11 +53,11 @@ Bindear un array a la tabla: `ng-repeat="item in array"`; expresión que se eval
 
 Agregar controller/crear scope en el DOM apropiado. Por convención se utiliza el sufijo `Ctrl` para los controllers.
 
-```
+```html
 <table border="1" ng-controller="MembersListCtrl">
 ```
 
-```
+```javascript
 .controller('MembersListCtrl', function ($scope) {
     $scope.members = [];
 });
@@ -65,7 +65,7 @@ Agregar controller/crear scope en el DOM apropiado. Por convención se utiliza e
 
 Reemplazamos la colección hardcodeada por la propiedad del scope:
 
-```
+```html
 <tr ng-repeat="member in members">
   <td>{{ member.name }}</td>
   <td>{{ member.desktop }}</td>
@@ -75,7 +75,7 @@ Reemplazamos la colección hardcodeada por la propiedad del scope:
 
 Probamos agregar items a la colección:
 
-```
+```javascript
 $scope.members = [
   { name: '@DiegoRam', desktop: 'OSX', mobile: 'Android' },
   { name: '@luisfarzati', desktop: 'Ubuntu', mobile: 'Android' }
@@ -84,14 +84,14 @@ $scope.members = [
 
 Ahora creamos un form para poder agregar miembros. Por ahora agreguemos un solo campo, el del memberName.
 
-```
+```html
 <form ng-controller="MemberFormCtrl">
   <input type="text" ng-model="memberName" placeholder="Member">
   <button ng-click="addMember()">Add member</button>
 </form>
 ```
 
-```
+```javascript
 .controller('MemberFormCtrl', function ($scope) {
     $scope.addMember = function () {
         $scope.members.push({ name: $scope.memberName });
@@ -109,7 +109,7 @@ TypeError: Cannot call method 'push' of undefined
 
 Ok, `members[]` debería ser accesible por ambos controllers. Qué tienen en común ambos controllers? Recordemos que sus scopes heredan del mismo parent: $rootScope.
 
-```
+```javascript
 .controller('MembersListCtrl', function ($rootScope) {
     $rootScope.members = [
       { name: '@DiegoRam', desktop: 'OSX', mobile: 'Android' },
@@ -131,7 +131,7 @@ Pero antes tenemos que terminar el formulario. Probemos la app una vez más, agr
 Ahora agreguemos 2 dropdown al formulario, uno para las marcas desktop y otro para mobile. Ya que estamos, vamos a refactorear un poco. En vez de utilizar 3 properties diferentes del $scope (`memberName`, `memberDesktop`, `memberMobile`) usemos `member` y ese objeto lo agregamos directamente al array.
 
 
-```
+```javascript
 .controller('MemberFormCtrl', function ($rootScope, $scope) {
     $scope.addMember = function () {
         $rootScope.members.push($scope.member);
@@ -140,7 +140,7 @@ Ahora agreguemos 2 dropdown al formulario, uno para las marcas desktop y otro pa
 
 ```
 
-```
+```html
 <input type="text" ng-model="member.name" placeholder="Member">
 <select ng-model="member.desktop">
   <option>Ubuntu</option>
@@ -158,7 +158,7 @@ Ok, probémoslo. Agreguemos un miembro. Ahora comencemos a agregar otro. WTF!
 Este es otro tricky issue en el que uno cae con facilidad al principio.
 
 
-```
+```javascript
 .controller('MemberFormCtrl', function ($rootScope, $scope) {
     $scope.addMember = function () {
         $rootScope.members.push(angular.copy($scope.member));
@@ -169,7 +169,7 @@ Este es otro tricky issue en el que uno cae con facilidad al principio.
 
 A todo esto, hay un detalle que falta: estaría bueno que el form se resetee cuando agregamos un miembro.
 
-```
+```javascript
 .controller('MemberFormCtrl', function ($rootScope, $scope) {
     $scope.addMember = function () {
         $rootScope.members.push(angular.copy($scope.member));
@@ -182,7 +182,7 @@ A todo esto, hay un detalle que falta: estaría bueno que el form se resetee cua
 
 Probemos inicializar valores por defecto en el form:
 
-```
+```javascript
 .controller('MemberFormCtrl', function ($rootScope, $scope) {
     $scope.addMember = function () {
         $rootScope.members.push(angular.copy($scope.member));
