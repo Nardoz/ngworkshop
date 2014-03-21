@@ -15,13 +15,13 @@ Inspeccionemos `$rootScope.$$watchers`. Qué está pasando en realidad: acerca d
 
 ## 2-way databinding
 
-```
+```html
 <p><input ng-model="someText"> {{ someText }}</p>
 ```
 
 `ng-model` se ocupa de bindear el input value al modelo, seteando un $watcher de la misma forma que `{{ }}` "watchea" al modelo.
 
-```
+```js
 $rootScope.someText = 'Hello World';
 ```
 
@@ -30,11 +30,11 @@ $rootScope.someText = 'Hello World';
 
 Se pueden agregar métodos en el scope para ser invocados desde la vista:
 
-```
+```html
 <button ng-click="alertSomething('hey ho!')">Shout</button>
 ```
 
-```
+```js
 $rootScope.alertSomething = function (message) {
   alert(message);
 };
@@ -42,17 +42,17 @@ $rootScope.alertSomething = function (message) {
 
 ## Scope inheritance y DOM tree<->scope tree.
 
-```
+```html
 <p>{{ someText }} in scope {{ $id }}</p>
 ```
 
 `ng-controller` => crea un scope que hereda del parent. Copiemos el `<p>` anterior y agreguémosle un controller:
 
-```
+```html
 <p ng-controller="TestCtrl">{{ someText }} in scope {{ $id }}</p>
 ```
 
-```
+```js
 .controller('TestCtrl', function ($scope) {
     window.$scope = $scope;
 });
@@ -62,19 +62,19 @@ Vemos que los scopes tienen `$id` diferentes. Inspeccionemos `$scope`: es un chi
 
 Ahora asignemos un valor a `someText` dentro del controller:
 
-```
+```js
 $scope.someText = 'yo soy otro someText';
 ```
 
 Volvamos a inspeccionar `$scope`. Recordar esto porque es medio tricky. Puede pasar este caso:
 
-```
+```html
 <p ng ng-controller="TestCtrl">{{ someText }} in scope {{ $id }}<br>
   <span ng-controller="ChildCtrl"><input ng-model="someText"> {{ someText }} in scope {{ $id }}</span>
 </p>
 ```
 
-```
+```js
 app.controller('ChildCtrl', function ($scope) {});
 ```
 
@@ -82,13 +82,13 @@ Cuando cambiamos el valor desde el input, creamos un `someText` en el `ChildCtrl
 
 Solución:
 
-```
+```html
 <p ng ng-controller="TestCtrl">{{ obj.someText }} in scope {{ $id }}<br>
   <span ng-controller="ChildCtrl"><input ng-model="obj.someText"> {{ obj.someText }} in scope {{ $id }}</span>
 </p>
 ```
 
-```
+```js
 app.controller('TestCtrl', function ($scope) {
   $scope.obj = { someText: 'nardoz' };
 });
@@ -100,7 +100,7 @@ Observar lo siguiente: estuvimos repitiendo referencias a controllers a lo largo
 
 Relacionado a esto, tengamos en cuenta que, así como `ng-controller`, hay otras directivas que crean nuevos scopes:
 
-```
+```html
 <p ng ng-controller="TestCtrl">{{ someText }} in scope {{ $id }}<br>
   <span ng-if="true"><input ng-model="someText"> {{someText}} in scope {{ $id }}</span>
 </p>
