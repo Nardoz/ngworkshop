@@ -8,7 +8,7 @@
 
 El "**VM**" en "MV**_VM_**". DOM == V. Scope == VM. `ng-app` y el `$rootScope`. Acerca de `module.run()`. Inyección de dependencias.
 
-```
+```js
 .run(function ($rootScope) {
     window.$rootScope = $rootScope;
 });
@@ -16,19 +16,19 @@ El "**VM**" en "MV**_VM_**". DOM == V. Scope == VM. `ng-app` y el `$rootScope`. 
 
 Inspeccionemos $rootScope en la consola. Ahora asignemos un valor a `someText` en el scope, para comprobar el `{{ someText }}` del ejemplo anterior:
 
-```
+```js
 $rootScope.someText = 'nardoz (from scope)';
 ```
 
 Binding del Scope(VM) <==> DOM(V).
 
-```
+```html
 <title>S01E02 | Nardoz {{ '#ngworkshop' }}</title>
 ```
 
 Por qué? => está fuera del scope: recordemos que es ng-app quien crea el scope. "Ensanchemos" el scope de manera que `<title>` quede adentro:
 
-```
+```html
 <html ng-app="hello">
 ...
 <body>
@@ -36,7 +36,7 @@ Por qué? => está fuera del scope: recordemos que es ng-app quien crea el scope
 
 ### "Live binding"
 
-```
+```html
 <p>{{ someDate }}</p>
 ```
 
@@ -46,7 +46,7 @@ $rootScope.someDate = new Date();
 
 Cool! Probemos algo más cool todavía:
 
-```
+```js
 .run(function ($rootScope, $interval) {
   $interval(function () {
     $rootScope.someDate = new Date();
